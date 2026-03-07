@@ -4,6 +4,7 @@ from fastapi.responses import Response
 from app.gemini import ask_gemini
 from app.twilio_client import client
 from app.config import TWILIO_PHONE_NUMBER, CAREGIVER_PHONE, BASE_URL
+from app.users import USERS
 
 app = FastAPI(title="Hey Gran Backend")
 
@@ -44,23 +45,37 @@ def call_user(phone: str):
 
     return {"status": "calling", "call_sid": call.sid}
 
+from app.users import USERS
+
 @app.post("/voice/start")
-def voice_start():
+def voice_start(From: str = Form(default="")):
+
+    profile = USERS.get(From, {})
+
+    name = profile.get("name", "there")
+    conditions = profile.get("conditions", [])
+
+    prompt = f"""
+Create a friendly health check-in question for an elderly person.
+
+Name: {name}
+Conditions: {conditions}
+
+Keep it short and warm.
+"""
+
+    question = ask_gemini(prompt)
 
     twiml = f"""
-    <Response>
-        <Gather input="speech" action="{BASE_URL}/voice/process" method="POST" speechTimeout="auto">
-            <Say>Hello Mary, this is Hey Gran checking in.</Say>
-            <Say>How are you feeling today?</Say>
-        </Gather>
-
-        <Say>Sorry, I didn't catch that.</Say>
-        <Redirect method="POST">{BASE_URL}/voice/start</Redirect>
-    </Response>
-    """
+<Response>
+<Gather input="speech" action="{BASE_URL}/voice/process" method="POST" speechTimeout="auto">
+<Say>Hello {name}, this is Hey Gran checking in.</Say>
+<Say>{question}</Say>
+</Gather>
+</Response>
+"""
 
     return Response(content=twiml, media_type="application/xml")
-
 
 
 @app.post("/voice/process")
@@ -92,12 +107,35 @@ Respond kindly in one short sentence.
 
     ai_reply = ask_gemini(response_prompt)
 
+    riddle_prompt = """
+Give a short fun riddle suitable for an elderly person.
+Return only the riddle.
+"""
+
+    riddle = ask_gemini(riddle_prompt)
+
     twiml = f"""
 <Response>
-    <Say>{ai_reply}</Say>
-    <Say>Thank you for chatting with me today.</Say>
-    <Hangup/>
+<Say>{ai_reply}</Say>
+<Say>Before we go, here's a fun riddle.</Say>
+<Say>{riddle}</Say>
+<Say>Talk to you again soon.</Say>
+<Hangup/>
 </Response>
 """
 
     return Response(content=twiml, media_type="application/xml")
+
+@app.post("/caregiver/trigger-call")
+def caregiver_trigger_call(user_phone: str):
+
+    call = client.calls.create(
+        to=user_phone,
+        from_=TWILIO_PHONE_NUMBER,
+        url=f"{BASE_URL}/voice/start"
+    )
+
+    return {
+        "status": "call_started",
+        "call_sid": call.sid
+    }
