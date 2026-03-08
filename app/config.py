@@ -13,3 +13,4 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 BASE_URL = os.getenv("BASE_URL")
+MATCH_USER_PHONE = os.getenv("MATCH_USER_PHONE")

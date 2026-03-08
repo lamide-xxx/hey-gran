@@ -1,12 +1,14 @@
-from fastapi import FastAPI, Form, HTTPException
+from fastapi import FastAPI, Form, HTTPException, Query
 from fastapi.responses import Response
 from app.gemini import ask_gemini
 from app.twilio_client import client
-from app.config import TWILIO_PHONE_NUMBER, CAREGIVER_PHONE, BASE_URL
+from app.config import TWILIO_PHONE_NUMBER, CAREGIVER_PHONE, BASE_URL, MATCH_USER_PHONE
 from app.users import USERS, get_user_by_phone
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from urllib.parse import quote
 import datetime
+import uuid
 
 app = FastAPI(title="Hey Gran Backend")
 
@@ -49,6 +51,33 @@ Return ONLY the category.
     result = ask_gemini(prompt)
 
     return result.strip()
+
+def ask_lonely_confirmation(profile_id, caller):
+
+    twiml = f"""
+<Response>
+
+<Say voice="Polly.Amy-Neural">
+It sounds like you might enjoy speaking with someone.
+</Say>
+
+<Say voice="Polly.Amy-Neural">
+I know another person who enjoys gardening too.
+Would you like me to try connecting you?
+</Say>
+
+<Say voice="Polly.Amy-Neural">
+Press 1 for yes, or press 2 to continue chatting with me.
+</Say>
+
+<Gather numDigits="1"
+action="{BASE_URL}/lonely-confirm?profile_id={profile_id}&amp;caller={quote(caller)}" />
+
+</Response>
+"""
+
+    return Response(content=twiml, media_type="application/xml")
+
 
 @app.get("/")
 def root():
@@ -128,6 +157,17 @@ def voice_process(profile_id: str = "", SpeechResult: str = Form(default=""), Fr
 
     transcript = SpeechResult.lower()
 
+    lonely_keywords = [
+        "lonely",
+        "alone",
+        "talk to someone",
+        "someone to talk to",
+        "feeling lonely",
+    ]
+
+    if any(k in transcript for k in lonely_keywords):
+        return ask_lonely_confirmation(profile_id, From)
+
     profile = USERS.get(profile_id) or get_user_by_phone(From) or {}
     name = profile.get("name", "Unknown User")
     first_name = profile.get("firstName", name)
@@ -202,6 +242,106 @@ They said: "{transcript}"
 <Gather input="speech" action="{BASE_URL}/voice/process?profile_id={profile_id}" method="POST" speechTimeout="auto">
 <Say voice="Polly.Amy-Neural">{ai_reply}</Say>
 </Gather>
+</Response>
+"""
+
+    return Response(content=twiml, media_type="application/xml")
+
+@app.post("/lonely-confirm")
+def lonely_confirm(
+    Digits: str = Form(...),
+    caller: str = Query(...),
+    profile_id: str = Query("")
+):
+
+    if Digits == "1":
+
+        if not MATCH_USER_PHONE:
+            twiml = f"""
+<Response>
+<Say voice="Polly.Amy-Neural">I'm sorry, I couldn't find anyone available right now. Let's keep chatting.</Say>
+<Gather input="speech" action="{BASE_URL}/voice/process?profile_id={profile_id}" method="POST" speechTimeout="auto"/>
+</Response>
+"""
+            return Response(content=twiml, media_type="application/xml")
+
+        room_name = f"heygran-{uuid.uuid4().hex[:8]}"
+
+        client.calls.create(
+            to=MATCH_USER_PHONE,
+            from_=TWILIO_PHONE_NUMBER,
+            url=f"{BASE_URL}/lonely-invite?caller={quote(caller)}&room={room_name}"
+        )
+
+        twiml = f"""
+<Response>
+<Say voice="Polly.Amy-Neural">
+Alright, let me see if they are available. Please hold for a moment.
+</Say>
+<Dial timeout="45">
+<Conference startConferenceOnEnter="true" endConferenceOnExit="true" waitUrl="http://twimlets.com/holdmusic?Bucket=com.twilio.music.classical">{room_name}</Conference>
+</Dial>
+<Say voice="Polly.Amy-Neural">It looks like they weren't available this time. Let's continue our chat.</Say>
+<Gather input="speech" action="{BASE_URL}/voice/process?profile_id={profile_id}" method="POST" speechTimeout="auto">
+<Say voice="Polly.Amy-Neural">Is there anything else on your mind?</Say>
+</Gather>
+</Response>
+"""
+
+    else:
+
+        twiml = f"""
+<Response>
+<Say voice="Polly.Amy-Neural">
+No problem at all. I'm happy to keep chatting with you.
+</Say>
+<Gather input="speech" action="{BASE_URL}/voice/process?profile_id={profile_id}" method="POST" speechTimeout="auto"/>
+</Response>
+"""
+
+    return Response(content=twiml, media_type="application/xml")
+
+@app.post("/lonely-response")
+def lonely_response(
+    Digits: str = Form(...),
+    room: str = Query(...)
+):
+
+    if Digits == "1":
+
+        twiml = f"""
+<Response>
+<Say voice="Polly.Amy-Neural">Connecting you now.</Say>
+<Dial>
+<Conference startConferenceOnEnter="true" endConferenceOnExit="true">{room}</Conference>
+</Dial>
+</Response>
+"""
+    else:
+
+        twiml = """
+<Response>
+<Say voice="Polly.Amy-Neural">No problem. Have a lovely day.</Say>
+</Response>
+"""
+
+    return Response(content=twiml, media_type="application/xml")
+
+@app.post("/lonely-invite")
+def lonely_invite(caller: str = Query(...), room: str = Query(...)):
+    profile = get_user_by_phone(caller) or {}
+    name = profile.get("firstName", "Someone")
+    twiml = f"""
+<Response>
+<Say voice="Polly.Amy-Neural">
+Hello. This is Hey Gran calling.
+{name} would like someone to talk to.
+</Say>
+<Say voice="Polly.Amy-Neural">
+Press 1 if you would like to chat now.
+Press 2 if you are unavailable.
+</Say>
+<Gather numDigits="1" action="{BASE_URL}/lonely-response?room={room}"/>
 </Response>
 """
 
