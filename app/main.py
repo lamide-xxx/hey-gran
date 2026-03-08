@@ -34,18 +34,21 @@ class UpdatePhoneRequest(BaseModel):
 def classify_risk(user_text: str):
 
     prompt = f"""
-You are a health risk classifier for an elderly wellness check call.
+You are a cautious health risk classifier for an elderly wellness check call.
+When in doubt, always classify HIGHER rather than lower. Elderly people often understate how they feel.
 
 Classify the following statement into one category:
 
-LOW_RISK
-MEDIUM_RISK
-HIGH_RISK
-EMERGENCY
+LOW_RISK — Feeling good, positive, normal day, no complaints at all.
+MEDIUM_RISK — Minor complaints like tiredness, slight aches, feeling a bit off, not sleeping well, mild loneliness.
+HIGH_RISK — Any mention of pain, dizziness, shortness of breath, falling, not eating, confusion, feeling unwell, feeling sad or down, missed medication, not feeling right, or anything that could indicate a health concern.
+EMERGENCY — Chest pain, can't breathe, fell and can't get up, severe pain, asking for help urgently.
+
+Important: If the person mentions ANY physical symptom, discomfort, or emotional distress, classify as HIGH_RISK or above. Only classify as LOW_RISK if they are clearly happy and well.
 
 Statement: "{user_text}"
 
-Return ONLY the category.
+Return ONLY the category name (i.e. LOW_RISK, MEDIUM_RISK, HIGH_RISK, EMERGENCY).
 """
 
     result = ask_gemini(prompt)
@@ -132,9 +135,12 @@ You are Hey Gran, a warm and friendly wellness check-in service calling an elder
 Name: {name}
 Known conditions: {conditions}
 
-Generate a short, warm greeting and ONE open-ended question to start a conversation.
-For example: "How have you been feeling lately?" or "Have you been sleeping well?"
-Keep it to 2 sentences max. Do NOT say you are an AI.
+Generate ONE warm, open-ended question to check in on them.
+Tailor the question to their known conditions when possible.
+For example, if they have diabetes you might ask about their blood sugar or eating habits.
+If they have hypertension, you might ask how their energy levels have been.
+Do NOT start with a greeting like "Hello" or "Hi" — the greeting has already been said.
+Keep it to 1 sentence. Do NOT say you are an AI.
 """
 
     question = ask_gemini(prompt)
