@@ -13,9 +13,9 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-background-light dark:bg-background-dark">
-            <div className="w-full max-w-sm space-y-8">
-                <div className="text-center">
-                    <div className="relative w-48 h-48 mx-auto mb-4">
+            <div className="w-full max-w-sm space-y-12">
+                <div className="text-center space-y-6">
+                    <div className="relative w-80 h-80 mx-auto animate-float">
                         <Image
                             src="/images/brand_artwork.png"
                             alt="Hey Gran! Logo"
@@ -24,44 +24,41 @@ export default function LoginPage() {
                             priority
                         />
                     </div>
-                    <h1 className="text-4xl font-extrabold tracking-tight text-primary">
-                        HEY GRAN!
-                    </h1>
-                    <p className="mt-2 text-slate-500 dark:text-slate-400 font-medium text-sm">
+                    <p className="text-slate-500 dark:text-slate-400 font-bold text-lg">
                         AI wellness check for loved ones
                     </p>
                 </div>
 
-                <form onSubmit={handleLogin} className="mt-8 space-y-4">
+                <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
-                        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
+                        <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                             Username
                         </label>
                         <input
                             type="text"
                             placeholder="e.g. julia_care"
-                            className="w-full h-12 px-4 rounded-xl bg-primary/10 border border-primary/20 focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all text-slate-900 dark:text-slate-100"
+                            className="w-full h-14 px-5 rounded-xl bg-primary/15 border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                         />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
+                        <label className="text-sm font-bold text-slate-700 dark:text-slate-300 ml-1">
                             Password
                         </label>
                         <input
                             type="password"
                             placeholder="••••••••"
-                            className="w-full h-12 px-4 rounded-xl bg-primary/10 border border-primary/20 focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all text-slate-900 dark:text-slate-100"
+                            className="w-full h-14 px-5 rounded-xl bg-primary/15 border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                         />
                     </div>
                     <button
                         type="submit"
-                        className="w-full h-12 mt-4 bg-primary text-slate-900 font-bold rounded-xl shadow-md transform transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                        className="w-full h-14 mt-6 bg-primary text-slate-900 font-bold text-lg rounded-xl shadow-lg transform transition-transform hover:scale-[1.03] active:scale-[0.97]"
                     >
                         Login
                     </button>
                 </form>
 
-                <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-8">
+                <p className="text-center text-xs text-slate-400 dark:text-slate-500 font-medium">
                     Helping families stay connected, one call at a time.
                 </p>
             </div>
