@@ -1,16 +1,16 @@
-from google import genai
-from app.config import GEMINI_API_KEY
+from openai import OpenAI
+from app.config import OPENAI_API_KEY
 
-client = genai.Client(api_key=GEMINI_API_KEY)
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 def ask_gemini(prompt: str):
-
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": prompt}],
     )
 
-    if response.text:
-        return response.text.strip()
+    text = response.choices[0].message.content
+    if text:
+        return text.strip()
 
     return ""
