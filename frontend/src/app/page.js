@@ -14,17 +14,31 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-background-light dark:bg-background-dark">
             <div className="w-full max-w-sm space-y-12">
-                <div className="text-center space-y-6">
-                    <div className="relative w-80 h-80 mx-auto animate-float">
-                        <Image
-                            src="/images/brand_artwork.png"
-                            alt="Hey Gran! Logo"
-                            fill
-                            className="object-contain mix-blend-multiply dark:mix-blend-normal"
-                            priority
-                        />
+                <div className="text-center">
+                    {/* Illustration Area */}
+                    <div className="relative w-96 h-80 mx-auto flex flex-col items-center">
+                        <div className="relative w-full h-full mb-2">
+                            <Image
+                                src="/images/brand_artwork_img.png"
+                                alt="Hey Gran Illustration"
+                                fill
+                                className="object-contain"
+                                priority
+                            />
+                        </div>
+                        <h1
+                            className="text-[3.5rem] font-semibold tracking-tight leading-none animate-float"
+                            style={{
+                                color: "#437b8d",
+                                fontFamily: "var(--font-fredoka)",
+                                marginTop: "-1.5rem"
+                            }}
+                        >
+                            Hey Gran!
+                        </h1>
                     </div>
-                    <p className="text-slate-500 dark:text-slate-400 font-bold text-lg">
+
+                    <p className="text-slate-500 dark:text-slate-400 font-bold text-lg mt-8">
                         AI wellness check for loved ones
                     </p>
                 </div>
