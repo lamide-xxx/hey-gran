@@ -14,17 +14,17 @@ export default function SettingsPage() {
         </Link>
         <h1 className="text-xl font-bold tracking-tight">Settings</h1>
       </header>
-      
+
       <main className="flex-1 w-full pb-8">
         {/* Profile Section */}
         <div className="p-6 flex items-center gap-4">
           <div className="size-16 rounded-full bg-primary flex items-center justify-center overflow-hidden">
-            <Image 
-              src="/images/settings-avatar.jpg"
-              alt="Profile picture" 
+            <Image
+              src="/images/tami.jpg"
+              alt="Profile picture"
               width={64}
               height={64}
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover"
             />
           </div>
           <div>
@@ -39,13 +39,14 @@ export default function SettingsPage() {
         {/* Voice Section */}
         <section className="px-4 py-2">
           <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-4 px-2">Hey Gran&apos;s Voice</h3>
-          
-          <style dangerouslySetInnerHTML={{__html: `
+
+          <style dangerouslySetInnerHTML={{
+            __html: `
             .radio-dot {
               --radio-dot-svg: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23ffd9b8' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='4'/%3e%3c/svg%3e");
             }
           `}} />
-          
+
           <div className="flex flex-col gap-3 radio-dot">
             <label className="flex items-center gap-4 rounded-xl border border-primary/30 dark:border-primary/10 p-4 bg-white dark:bg-slate-800/50 cursor-pointer hover:border-primary transition-all">
               <div className="flex grow flex-col">
