@@ -1,11 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { fetchProfile, updateProfilePhone } from "@/lib/api";
 
 export default function ProfilePage() {
+  return (
+    <Suspense fallback={<div className="p-6 text-center">Loading...</div>}>
+      <ProfileContent />
+    </Suspense>
+  );
+}
+
+function ProfileContent() {
   const searchParams = useSearchParams();
   const rawId = searchParams.get("id") || "dorothy";
 
