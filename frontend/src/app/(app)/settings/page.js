@@ -2,14 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Nana App Settings",
+  title: "Settings",
 };
 
 export default function SettingsPage() {
   return (
     <>
       <header className="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-primary/20 p-4 flex items-center gap-4">
-        <Link href="/" className="flex items-center justify-center size-10 rounded-full hover:bg-primary/20 transition-colors">
+        <Link href="/dashboard" className="flex items-center justify-center size-10 rounded-full hover:bg-primary/20 transition-colors">
           <span className="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
         </Link>
         <h1 className="text-xl font-bold tracking-tight">Settings</h1>
@@ -20,7 +20,7 @@ export default function SettingsPage() {
         <div className="p-6 flex items-center gap-4">
           <div className="size-16 rounded-full bg-primary flex items-center justify-center overflow-hidden">
             <Image 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnLXFz85FZfu6FIgWH5E0JWKp_T6ehkQkr3YvLPq-aSQnOBDfQy4tnChOI-YKSu48PPARicShItJq5BZKtLYBckVF3dJm-U3QxEG5bcCFCYxs0t8MEiENFRDg3wswZ3AgDqZME50_86OBno8WY1-iY1cO-GkcdqVLdQwE5uS9wSt76lYgP6zGhs4s__GTsdRgfnKcHqC9PniNtcbmxKaRU6gWc1n4LVR37SGq0iDu28LnhB6RvBZisa-frGSXkgs569_JZTZdIYBw"
+              src="/images/settings-avatar.jpg"
               alt="Profile picture" 
               width={64}
               height={64}
@@ -28,7 +28,7 @@ export default function SettingsPage() {
             />
           </div>
           <div>
-            <h2 className="text-lg font-bold">Nana&apos;s Account</h2>
+            <h2 className="text-lg font-bold">Julia&apos;s Account</h2>
             <p className="text-sm text-slate-500 dark:text-slate-400">Premium Member</p>
           </div>
           <button className="ml-auto flex items-center justify-center size-10 rounded-full bg-primary/20 text-primary">
@@ -36,9 +36,9 @@ export default function SettingsPage() {
           </button>
         </div>
 
-        {/* Nana's Voice Section */}
+        {/* Voice Section */}
         <section className="px-4 py-2">
-          <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-4 px-2">Nana&apos;s Voice</h3>
+          <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-4 px-2">Hey Gran&apos;s Voice</h3>
           
           <style dangerouslySetInnerHTML={{__html: `
             .radio-dot {

@@ -15,7 +15,7 @@ USERS = {
         "caregiver": "+447700000099",
         "status": "Stable",
         "statusColor": "emerald",
-        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuATTwb0LCUQw4Xk8zsBSrX2XNBnGHzl8SIaS_0CaxxTLyH4yjnJE9X99CiTGQ85QvXW7gf_5Zgfy0Rh2VxbGa5fUrl7a4KHoOSuMyKzYAQpzQTKlsrIVBgtWUkE4vUtjH6ESqh4ac0uRYQqnHNIdxPCvFJoiWbnqiYzVgKGAKUMw75qhHSOZ8pxomOo-HHHBt5tWPyow8HU0a9upvtPZsTV7p3V5IjxiMYMQcyjNyOA2wFVi7-tSG0lJW8PPZgQfqe-1gw9-A7W180",
+        "image": "/images/dorothy.jpg",
         "conditions": [
             {"name": "Type 2 Diabetes", "detail": "Diagnosed 2018"},
             {"name": "Hypertension", "detail": "Regular monitoring required"},
@@ -38,7 +38,7 @@ USERS = {
         "caregiver": "+447700000099",
         "status": "Resting",
         "statusColor": "amber",
-        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBjyJfvwQGcu1ey9i9yuDB_p_vQlkIQgCgbPJT4bVJNmrQLsuOKjS3YW0Y_TUao2FQRzc0G3Nsc1AuxbsY_ouOKRqvoPFZyihgI1mXNlnfuy8g3ODaufbudGL7eUgKd-1SBYj1Ujn7E9NkbFfUnoRcP6yPUyJVmBujmB-QJ_Yq5ToBbLHe6V-AdZLNERfCH8OBqT35-jbpM8mFFl8BV5x0geLo6sc1IORvanbbqEmE3ghhVRJ-8vYJp8evXqcu_eSaVFsuyT6z54so",
+        "image": "/images/arthur.jpg",
         "conditions": [
             {"name": "Arthritis", "detail": "Knees and hands"},
         ],

@@ -22,3 +22,14 @@
     min-height: max(884px, 100dvh);
   }
 }
+@layer utilities {
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}

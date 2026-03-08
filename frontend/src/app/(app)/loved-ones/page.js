@@ -38,7 +38,7 @@ export default function LovedOnesPage() {
   return (
     <>
       <header className="sticky top-0 z-10 flex items-center bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 justify-between border-b border-primary/10">
-        <Link href="/" className="flex items-center justify-center p-2 rounded-full hover:bg-primary/10 transition-colors">
+        <Link href="/dashboard" className="flex items-center justify-center p-2 rounded-full hover:bg-primary/10 transition-colors">
           <span className="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
         </Link>
         <h1 className="text-lg font-bold leading-tight tracking-tight flex-1 text-center">Loved Ones</h1>

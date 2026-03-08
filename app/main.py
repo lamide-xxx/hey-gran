@@ -267,11 +267,22 @@ def lonely_confirm(
 
         room_name = f"heygran-{uuid.uuid4().hex[:8]}"
 
-        client.calls.create(
-            to=MATCH_USER_PHONE,
-            from_=TWILIO_PHONE_NUMBER,
-            url=f"{BASE_URL}/lonely-invite?caller={quote(caller)}&room={room_name}"
-        )
+        try:
+            outbound = client.calls.create(
+                to=MATCH_USER_PHONE,
+                from_=TWILIO_PHONE_NUMBER,
+                url=f"{BASE_URL}/lonely-invite?caller={quote(caller)}&room={room_name}"
+            )
+            print(f"Outbound call to {MATCH_USER_PHONE}: SID={outbound.sid}")
+        except Exception as e:
+            print(f"Failed to call MATCH_USER_PHONE ({MATCH_USER_PHONE}): {e}")
+            twiml = f"""
+<Response>
+<Say voice="Polly.Amy-Neural">I'm sorry, I couldn't reach anyone right now. Let's keep chatting.</Say>
+<Gather input="speech" action="{BASE_URL}/voice/process?profile_id={profile_id}" method="POST" speechTimeout="auto"/>
+</Response>
+"""
+            return Response(content=twiml, media_type="application/xml")
 
         twiml = f"""
 <Response>

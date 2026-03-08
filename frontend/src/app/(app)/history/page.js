@@ -24,7 +24,7 @@ export default function HistoryPage() {
   return (
     <>
       <header className="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-4 py-4 flex items-center justify-between border-b border-primary/20">
-        <Link href="/" className="p-2 hover:bg-primary/20 rounded-full transition-colors flex items-center justify-center">
+        <Link href="/dashboard" className="p-2 hover:bg-primary/20 rounded-full transition-colors flex items-center justify-center">
           <span className="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
         </Link>
         <h1 className="text-xl font-bold tracking-tight">Call History</h1>

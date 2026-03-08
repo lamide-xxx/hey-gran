@@ -14,10 +14,6 @@ out/
 
 # Binary / design files
 *.docx
-*.png
-*.jpg
-*.jpeg
-*.gif
 *.psd
 *.sketch
 
