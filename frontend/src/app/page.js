@@ -20,7 +20,7 @@ export default function LoginPage() {
                             src="/images/brand_artwork.png"
                             alt="Hey Gran! Logo"
                             fill
-                            className="object-contain"
+                            className="object-contain mix-blend-multiply dark:mix-blend-normal"
                             priority
                         />
                     </div>
