@@ -34,7 +34,7 @@ export default function LoginPage() {
                                 marginTop: "-1.5rem"
                             }}
                         >
-                            Hey Gran!
+                            HeyGran!
                         </h1>
                     </div>
 

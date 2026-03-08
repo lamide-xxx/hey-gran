@@ -12,19 +12,19 @@ const fredoka = Fredoka({
 });
 
 export const metadata = {
-  title: "Hey Gran! | AI Wellness Check for Loved Ones",
-  description: "Hey Gran! provides automated AI check-in calls to ensure your elderly loved ones are safe, healthy, and happy.",
+  title: "HeyGran! | AI Wellness Check for Loved Ones",
+  description: "HeyGran! provides automated AI check-in calls to ensure your elderly loved ones are safe, healthy, and happy.",
   openGraph: {
-    title: "Hey Gran! | AI Wellness Check for Loved Ones",
+    title: "HeyGran! | AI Wellness Check for Loved Ones",
     description: "Automated AI check-in calls to ensure your elderly loved ones are safe, healthy, and happy.",
     url: "https://hey-gran.vercel.app", // Fallback URL
-    siteName: "Hey Gran!",
+    siteName: "HeyGran!",
     images: [
       {
         url: "/preview.png",
         width: 1200,
         height: 630,
-        alt: "Hey Gran! AI wellness check for loved ones",
+        alt: "HeyGran! AI wellness check for loved ones",
       },
     ],
     locale: "en_GB",
@@ -32,7 +32,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hey Gran! | AI Wellness Check for Loved Ones",
+    title: "HeyGran! | AI Wellness Check for Loved Ones",
     description: "Automated AI check-in calls to ensure your elderly loved ones are safe, healthy, and happy.",
     images: ["/preview.png"],
   },
