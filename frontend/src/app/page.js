@@ -36,7 +36,7 @@ export default function LoginPage() {
                         </label>
                         <input
                             type="text"
-                            placeholder="e.g. julia_care"
+                            placeholder="e.g. tami_care"
                             className="w-full h-14 px-5 rounded-xl bg-primary/15 border border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/40 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                         />
                     </div>

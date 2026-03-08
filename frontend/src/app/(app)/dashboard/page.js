@@ -38,11 +38,11 @@ export default function Home() {
       {/* Header / Top Greeting */}
       <div className="flex items-center bg-background-light dark:bg-background-dark p-6 justify-between sticky top-0 z-10 w-full max-w-md mx-auto">
         <div className="flex size-12 shrink-0 items-center">
-          <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" aria-label="Profile picture of a smiling woman named Julia" style={{ backgroundImage: 'url("/images/julia.jpg")' }}></div>
+          <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" aria-label="Profile picture of Tami" style={{ backgroundImage: 'url("/images/tami.jpg")' }}></div>
         </div>
         <div className="flex-1 px-3">
           <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Monday, Oct 24</p>
-          <h2 className="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">Good morning, Julia!</h2>
+          <h2 className="text-slate-900 dark:text-slate-100 text-xl font-bold leading-tight tracking-tight">Good morning, Tami!</h2>
         </div>
         <div className="flex w-12 items-center justify-end">
           <button className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-primary/20 text-slate-900 dark:text-slate-100">

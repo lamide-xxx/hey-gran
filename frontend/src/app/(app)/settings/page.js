@@ -28,7 +28,7 @@ export default function SettingsPage() {
             />
           </div>
           <div>
-            <h2 className="text-lg font-bold">Julia&apos;s Account</h2>
+            <h2 className="text-lg font-bold">Tami&apos;s Account</h2>
             <p className="text-sm text-slate-500 dark:text-slate-400">Premium Member</p>
           </div>
           <button className="ml-auto flex items-center justify-center size-10 rounded-full bg-primary/20 text-primary">
