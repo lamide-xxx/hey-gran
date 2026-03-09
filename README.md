@@ -2,7 +2,10 @@
 
 AI-powered wellness check-in calls for elderly loved ones.
 
+<img width="640" height="640" alt="brand_artwork_img" src="https://github.com/user-attachments/assets/4314e7b4-84dd-41ad-b934-7ac4bf974510" />
+
 [Watch the Demo](https://youtu.be/9kDLC-qpjv0)
+
 
 ## Features
 
